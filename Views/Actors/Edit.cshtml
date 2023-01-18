@@ -1,0 +1,46 @@
+﻿@model Actor
+
+@{ViewData["title"] = "Update Actor";}
+
+
+<div style="width:700px;margin:auto;">
+    <h2 class="text-center"> Add New actor</h2> 
+    <form asp-action="Edit">
+       <div class="form-group text-center">
+           <img id="profile_pic_pre" style="border-radius:50%;">
+       </div>
+      <div class="form-group">
+        <label for="Profile_Picture">Profile Picture</label>
+        <input asp-for="ProfilePictureURL" type="text" class="form-control" id="Profile_Picture" >
+        <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
+      </div>
+      <div class="form-group">
+        <label for="full_name">Full Name</label>
+        <input asp-for="FullName" type="text" class="form-control" id="full_name">
+         <span asp-validation-for="FullName" class="text-danger"></span>
+      </div>
+      <div class="form-group">
+        <label for="Biography">Biography</label>
+        <input asp-for="Bio" type="text" class="form-control" id="Biography">
+         <span asp-validation-for="Bio" class="text-danger"></span>
+      </div>
+      <div class="form-group">
+         <button type="submit" class="btn btn-primary">Edit</button>
+         <button class="btn btn-secondary float-right" asp-action="Index">Show All</button>
+      </div>
+    </form>
+</div>
+
+@section scripts{
+    <script>
+         $( document ).ready(function() {
+           var profile_pic = $("#Profile_Picture").val();
+           var output = document.getElementById("profile_pic_pre");
+           output.src = profile_pic;  
+        });
+        $("#Profile_Picture").on("change", function() {
+           var output = document.getElementById("profile_pic_pre");
+           output.src = $(this).val();  
+        })
+    </script>
+}
