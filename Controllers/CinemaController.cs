@@ -3,7 +3,9 @@ using E_ticket.Interface;
 using E_ticket.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace E_ticket.Controllers
@@ -23,6 +25,7 @@ namespace E_ticket.Controllers
 
             return View(Actors);
         }
+        
 
         public IActionResult Create()
         {
@@ -69,6 +72,13 @@ namespace E_ticket.Controllers
         {
             _cinemaRepo.DeleteByIds(id);
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> Editt([FromQuery] int id)
+        {
+            var actor = await _cinemaRepo.GetByIdAsync(id);
+            return Json(actor);
         }
     }
 }

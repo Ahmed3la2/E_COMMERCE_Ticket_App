@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace E_ticket.Models
 {
-    public class Movie:IEntityBase
+    public class Movie :IEntityBase
     {
         public int Id { get; set; }
 

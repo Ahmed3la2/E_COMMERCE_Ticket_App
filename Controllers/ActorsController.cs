@@ -52,6 +52,8 @@ namespace E_ticket.Controllers
             var actor = await _actorsService.GetByIdAsync(id);
             return View(actor);
         }
+
+
         [HttpPost]
         public IActionResult Edit(Actor actor)
         {

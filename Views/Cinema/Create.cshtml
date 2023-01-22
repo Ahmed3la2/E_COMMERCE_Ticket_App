@@ -4,7 +4,7 @@
 
 
 <div style="width:700px;margin:auto;">
-    <h2 class="text-center"> Add New actor</h2> 
+    <h2 class="text-center"> Add New cinema</h2> 
     <form asp-action="Create">
        <div class="form-group text-center">
            <img id="profile_pic_pre" style="border-radius:50%;">
@@ -30,13 +30,26 @@
       </div>
     </form>
 </div>
+         <button class="btn btn-secondary float-right"  id="test">test</button>
 
 @section scripts{
     <script>
         $("#Profile_Picture").on("change", function() {
            var output = document.getElementById("profile_pic_pre");
-           output.src = $(this).val();
-         
+           output.src = $(this).val();     
         })
+        
+        $("#test").on("click", function() {
+           $.ajax({
+                url: 'editt?id=1',
+                type:'GET',
+                success: function(d){console.log(d)},
+                error: function(data){ alert(data)}
+            });
+
+            console.log(555);
+        })
+
+
     </script>
 }
