@@ -25,5 +25,12 @@ namespace E_ticket.Data
 
         public DbSet<MovieActor> movieActors { get; set; }
 
+        public DbSet<Order> orders { get; set; }
+
+        public DbSet<OrderItem> orderItems { get; set; }
+
+        public DbSet<ShopingCartItems> shopingCartItems { get; set; }
+
+
     }
 }

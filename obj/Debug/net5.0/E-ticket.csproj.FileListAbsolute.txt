@@ -157,3 +157,7 @@ C:\Users\ahmed\Desktop\E-ticket\E-ticket\bin\Debug\net5.0\zh-Hant\Microsoft.Code
 C:\Users\ahmed\Desktop\E-ticket\E-ticket\bin\Debug\net5.0\runtimes\win-arm\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 C:\Users\ahmed\Desktop\E-ticket\E-ticket\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 C:\Users\ahmed\Desktop\E-ticket\E-ticket\obj\Debug\net5.0\Razor\Views\Movie\Edit.cshtml.g.cs
+C:\Users\ahmed\Desktop\E-ticket\E-ticket\obj\Debug\net5.0\Razor\Views\Shared\Components\ShopingCartSummary\Default.cshtml.g.cs
+C:\Users\ahmed\Desktop\E-ticket\E-ticket\obj\Debug\net5.0\Razor\Views\Orders\OrderCompleted.cshtml.g.cs
+C:\Users\ahmed\Desktop\E-ticket\E-ticket\obj\Debug\net5.0\Razor\Views\Orders\GetShopingCartItems.cshtml.g.cs
+C:\Users\ahmed\Desktop\E-ticket\E-ticket\obj\Debug\net5.0\Razor\Views\Orders\Index.cshtml.g.cs

@@ -1,0 +1,109 @@
+﻿@using E_ticket.Data.ViewModel;
+@model ShopingCartVM
+
+@{
+    ViewData["Title"] = "Shopping cart summary";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <div class="text-center">
+            <h2>You shopping cart summary</h2>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Selected amount</th>
+                    <th>Movie</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ShopingCart.ShopingcartItems)
+                {
+                    <tr>
+                        <td class="align-middle">@item.Amount</td>
+                        <td class="align-middle">@item.Movie.Name</td>
+                        <td class="align-middle">@item.Movie.Price.ToString("c")</td>
+                        <td class="align-middle">@((item.Amount*item.Movie.Price).ToString("c"))</td>
+                        <td class="align-middle">
+                            <a class="text-danger" asp-controller="Orders" asp-action="Removeitemfromcart"
+                           asp-route-id="@item.Movie.Id">
+                                <i class="bi bi-cart-dash"></i>
+                            </a>
+                            |
+                            <a class="text-success" asp-controller="Orders" asp-action="AddToShopingCart"
+                           asp-route-id="@item.Movie.Id">
+                                <i class="bi bi-cart-plus"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2"></td>
+                    <td><b>Total:</b></td>
+                    <td>
+                        @Model.ShopingCartTotal.ToString("c")
+                    </td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="text-center">
+            <div class="btn-group">
+                <a class="btn btn-outline-primary" asp-controller="Movie" asp-action="Index">
+                    Add more items
+                </a>
+                <button id="btn-paypal"></button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+<script src="https://www.paypalobjects.com/api/checkout.js"> </script>
+
+<script>
+    let _total = @Html.Raw(Model.ShopingCartTotal);
+
+    paypal.Button.render({
+         env:'sandbox',
+         client:{
+             sandbox:'Acdcajw_Q4ITrLLKo1adrXN5LjVll0CCJyvFzyRXFHdVAZK5wCAz8KtYleHH4SU4ZXL085wfOB-sjsXf'
+         },
+
+         locale:'en_US',
+         style:{
+             size:'small',
+             color:'gold',
+             shape:'pill',
+         },
+         commit: true,
+         payment:function(data,actions){
+            return actions.payment.create({
+                transactions:[{
+                    amount:{
+                        total:_total,
+                        currency:"USD"
+                    }
+                }]
+            })
+         },
+
+         onAuthorize:function(data,actions){
+             return actions.payment.get().then(function () {
+                 var urll = '@Url.Action("CompleteOrder", "Orders")';
+                  window.location.href = urll
+             });
+         },
+
+    },"#btn-paypal");
+</script>
+}

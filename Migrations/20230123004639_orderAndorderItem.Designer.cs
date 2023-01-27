@@ -4,14 +4,16 @@ using E_ticket.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace E_ticket.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230123004639_orderAndorderItem")]
+    partial class orderAndorderItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -152,14 +154,14 @@ namespace E_ticket.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<int>("MovieId")
+                    b.Property<int?>("MovieId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OrderId")
+                    b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -189,29 +191,6 @@ namespace E_ticket.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("producers");
-                });
-
-            modelBuilder.Entity("E_ticket.Models.ShopingCartItems", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MovieId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ShopingCartid")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MovieId");
-
-                    b.ToTable("shopingCartItems");
                 });
 
             modelBuilder.Entity("E_ticket.Models.Movie", b =>
@@ -256,28 +235,15 @@ namespace E_ticket.Migrations
                 {
                     b.HasOne("E_ticket.Models.Movie", "Movie")
                         .WithMany()
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MovieId");
 
                     b.HasOne("E_ticket.Models.Order", "Order")
                         .WithMany("OrderItems")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrderId");
 
                     b.Navigation("Movie");
 
                     b.Navigation("Order");
-                });
-
-            modelBuilder.Entity("E_ticket.Models.ShopingCartItems", b =>
-                {
-                    b.HasOne("E_ticket.Models.Movie", "Movie")
-                        .WithMany()
-                        .HasForeignKey("MovieId");
-
-                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("E_ticket.Models.Actor", b =>

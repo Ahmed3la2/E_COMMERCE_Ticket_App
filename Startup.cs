@@ -1,7 +1,9 @@
 using E_ticket.Data;
+using E_ticket.Data.Cart;
 using E_ticket.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -31,7 +33,10 @@ namespace E_ticket
             services.AddScoped<ICinemaService, CinemaRepository>();
             services.AddScoped<IProducerService, ProducerRepository>();
             services.AddScoped<IMovieService, MovieRepository>();
-            
+            services.AddScoped<IOrderService, OrderRepository>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(x => ShopingCart.GetShopingCart(x));
+            services.AddSession();
             services.AddControllersWithViews();
         }
 
@@ -52,6 +57,7 @@ namespace E_ticket
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
             app.UseAuthorization();
 
