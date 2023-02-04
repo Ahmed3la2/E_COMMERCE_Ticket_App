@@ -7,7 +7,8 @@
         Drama,
         Documentary,
         Horror,
-        Cartoon
+        Cartoon,
+        Admin
 
     }
 }

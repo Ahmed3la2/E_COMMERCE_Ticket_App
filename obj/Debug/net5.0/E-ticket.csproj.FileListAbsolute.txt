@@ -161,3 +161,8 @@ C:\Users\ahmed\Desktop\E-ticket\E-ticket\obj\Debug\net5.0\Razor\Views\Shared\Com
 C:\Users\ahmed\Desktop\E-ticket\E-ticket\obj\Debug\net5.0\Razor\Views\Orders\OrderCompleted.cshtml.g.cs
 C:\Users\ahmed\Desktop\E-ticket\E-ticket\obj\Debug\net5.0\Razor\Views\Orders\GetShopingCartItems.cshtml.g.cs
 C:\Users\ahmed\Desktop\E-ticket\E-ticket\obj\Debug\net5.0\Razor\Views\Orders\Index.cshtml.g.cs
+C:\Users\ahmed\Desktop\E-ticket\E-ticket\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\ahmed\Desktop\E-ticket\E-ticket\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.cs
+C:\Users\ahmed\Desktop\E-ticket\E-ticket\obj\Debug\net5.0\Razor\Views\Account\Register.cshtml.g.cs
+C:\Users\ahmed\Desktop\E-ticket\E-ticket\obj\Debug\net5.0\Razor\Views\Account\RegsiterComplete.cshtml.g.cs
+C:\Users\ahmed\Desktop\E-ticket\E-ticket\obj\Debug\net5.0\Razor\Views\Shared\_identity.cshtml.g.cs

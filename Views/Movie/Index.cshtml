@@ -15,7 +15,10 @@
                             <p class="card-text">
                                 <h5 class="card-title">
                                     @item.Name
-                                    <a class="text-white float-right"><i class="bi bi-pencil-square"></i></a>
+                                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                    {
+                                        <a class="text-white float-right"><i class="bi bi-pencil-square"></i></a>
+                                    }
                                 </h5>
                             </p>
                         </div>
@@ -39,9 +42,10 @@
                                 else if (DateTime.Now > item.EndDate)
                                 {
                                     <span class="badge bg-danger text-white">EXPIRED</span>
-                                } else
+                                }
+                                else
                                 {
-                                <span class="badge bg-primary text-white">UPCOMING</span>
+                                    <span class="badge bg-primary text-white">UPCOMING</span>
                                 }
                             </p>
 
@@ -51,7 +55,7 @@
                         <div class="card-footer ">
                             <p class="card-text">
                                 <a style="cursor:pointer" class="btn btn-outline-primary float-right " asp-action="Detail" asp-route-id="@item.Id"><i class="bi bi-eye-fill"></i> Show Details</a>
-                                <a style="cursor:pointer" class="btn btn-success text-white" asp-controller="Orders" asp-action="AddToShopingCart" asp-route-id="@item.Id" ><i class="bi bi-cart-plus"></i> Add to Cart (Price @item.Price.ToString("c"))</a>
+                                <a style="cursor:pointer" class="btn btn-success text-white" asp-controller="Orders" asp-action="AddToShopingCart" asp-route-id="@item.Id"><i class="bi bi-cart-plus"></i> Add to Cart (Price @item.Price.ToString("c"))</a>
                             </p>
                         </div>
                     </div>
@@ -60,5 +64,7 @@
         </div>
     }
 </div>
-
-<a asp-controller="Movie" asp-action="Create" class=" btn btn-success float-right">Add Movie</a>
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <a asp-controller="Movie" asp-action="Create" class=" btn btn-success float-right">Add Movie</a>
+}

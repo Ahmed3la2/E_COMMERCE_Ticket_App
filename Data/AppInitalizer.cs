@@ -1,9 +1,12 @@
-﻿using E_ticket.Models;
+﻿using E_ticket.Data.Static;
+using E_ticket.Models;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace E_ticket.Data
 {
@@ -313,6 +316,48 @@ namespace E_ticket.Data
                     });
                     }
                     context.SaveChanges();
+                }
+            }
+        }
+
+        public static async Task SeedUserAndRole(IApplicationBuilder applicationbuider)
+        {
+            using (var ServiceScope = applicationbuider.ApplicationServices.CreateScope())
+            {
+                var roleManager = ServiceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                if (!await roleManager.RoleExistsAsync(UsersRoles.Admin))
+                   await roleManager.CreateAsync(new IdentityRole(UsersRoles.Admin)); 
+                if (!await roleManager.RoleExistsAsync(UsersRoles.User))
+                   await roleManager.CreateAsync(new IdentityRole(UsersRoles.User));
+
+                var UserManager = ServiceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+                var AdminUser = await UserManager.FindByEmailAsync("Admin@gmail.com");
+                if(AdminUser == null)
+                {
+                    var Admin = new ApplicationUser
+                    {
+                        Email = "Admin@gmail.com",
+                        UserName = "admin",
+                        FullName = "User Admin",
+                        EmailConfirmed = true,
+                    };
+                    await UserManager.CreateAsync(Admin, "Ahmed1@");
+                    await UserManager.AddToRoleAsync(Admin ,UsersRoles.Admin);
+                }
+
+                var User = await UserManager.FindByEmailAsync("User@gmail.com");
+                if (User == null)
+                {
+                    var NewUser = new ApplicationUser
+                    {
+                        Email = "User@gmail.com",
+                        UserName = "User",
+                        FullName = "User",
+                        EmailConfirmed = true,
+                    };
+                    await UserManager.CreateAsync(NewUser, "Ahmed1@");
+                    await UserManager.AddToRoleAsync(NewUser, UsersRoles.User);
                 }
             }
         }

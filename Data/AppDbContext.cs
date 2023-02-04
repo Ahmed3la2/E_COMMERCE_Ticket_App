@@ -1,15 +1,17 @@
 ﻿
 using E_ticket.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace E_ticket.Data
 {
-    public class AppDbContext: DbContext
+    public class AppDbContext: IdentityDbContext<ApplicationUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<MovieActor>().HasKey(am => new { am.MovieId, am.ActorId });
             modelBuilder.Entity<MovieActor>().HasOne(am => am.Movie).WithMany(am => am.movieActors).HasForeignKey(am => am.MovieId);
             modelBuilder.Entity<MovieActor>().HasOne(am => am.Actor).WithMany(am => am.MovieActors).HasForeignKey(am => am.ActorId);

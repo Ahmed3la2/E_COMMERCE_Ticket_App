@@ -16,10 +16,16 @@ namespace E_ticket.Data
             _context = appDbContext;
         }
 
-        public async Task<List<Order>> GetOrderByUserIdAsync(string userId)
+        public async Task<List<Order>> GetOrderByUserIdAndRoleAsync(string userId, string UserRole)
         {
-            var Orders = await _context.orders.Include(o => o.OrderItems).ThenInclude(m => m.Movie)
-                                .Where(user => user.UserId == userId).ToListAsync();
+            var Orders = _context.orders.Include(m => m.OrderItems).ThenInclude(m => m.Movie).Include(u => u.User).ToList();
+
+            if (UserRole != "Admin")
+            {
+                var order = Orders.Where(x => x.UserId == userId);
+            }
+          
+
             return Orders;
         }
         public async Task StoreOrder(List<ShopingCartItems> cartItems, string userId, string UserEmail)
@@ -46,6 +52,6 @@ namespace E_ticket.Data
             await _context.SaveChangesAsync();
         }
 
-      
+
     }
 }

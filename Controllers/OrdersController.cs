@@ -2,6 +2,7 @@
 using E_ticket.Data.ViewModel;
 using E_ticket.Interface;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace E_ticket.Controllers
@@ -36,8 +37,10 @@ namespace E_ticket.Controllers
 
         public async Task<ActionResult> Index()
         {
-            string UserId = "a";
-            var orderlist = await _orderService.GetOrderByUserIdAsync(UserId);
+            string UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var UserRole = User.FindFirst(ClaimTypes.Role).Value;
+
+            var orderlist = await _orderService.GetOrderByUserIdAndRoleAsync(UserId, UserRole);
 
             return View(orderlist);
         }
@@ -66,8 +69,8 @@ namespace E_ticket.Controllers
 
         public async Task<IActionResult> CompleteOrder()
         {
-            string UserId = "a";
-            string UserEmail = "";
+            string UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string UserEmail = User.FindFirst(ClaimTypes.Email).Value;
             var Items = _shopingCart.GetShopingCartItems();
             await _orderService.StoreOrder(Items,UserId,UserEmail);
             await _shopingCart.ClearShopingcart();

@@ -39,8 +39,6 @@ namespace E_ticket.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
-
         public async Task<IActionResult> Detail(int id)
         {
             var ActorDeatail = await _producerRepo.GetByIdAsync(id);
@@ -70,5 +68,7 @@ namespace E_ticket.Controllers
             _producerRepo.DeleteByIds(id);
             return RedirectToAction(nameof(Index));
         }
+
+       
     }
 }

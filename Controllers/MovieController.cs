@@ -1,5 +1,6 @@
 ﻿using E_ticket.Interface;
 using E_ticket.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
@@ -58,6 +59,7 @@ namespace E_ticket.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
             var movie = await _movieRepo.GetMovieByIdAsync(id);
@@ -87,6 +89,7 @@ namespace E_ticket.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id,  NewMovieVM UpdatedMovie)
         {
             if (!ModelState.IsValid)
